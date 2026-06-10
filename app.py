@@ -43,3 +43,13 @@ def toggle(tid):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+    
+
+
+
+@app.delete("/todos/<int:tid>")
+def delete(tid):
+    global _todos
+    before = len(_todos)
+    _todos = [t for t in _todos if t["id"] != tid]
+    return ("", 204) if len(_todos) < before else ("", 404)
